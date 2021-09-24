@@ -1,0 +1,17 @@
+.navBar{
+    position:absolute;
+    top: 10px;
+    width: 100%;
+    display: grid;  						
+    grid-template-columns: 70% 30%;
+    list-style: none;
+}
+.navOptionLeft{
+    display: flex;
+    justify-content: space-around;
+}
+
+.navOptionRight{
+    display: flex;
+    justify-content: space-around;
+}
