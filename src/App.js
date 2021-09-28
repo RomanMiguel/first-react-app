@@ -4,6 +4,7 @@ import NavBar from './components/navBar/navBar'
 import ItemListContainer from './components/listContainer/itemListContainer';
 import ItemDetailContainer from './components/detailContainer/itemDetailContainer';
 import Car from './components/carrito/cart';
+import { CartContextProvider } from './components/context/cartContext';
 
 function App() {
   const Articulos= [
@@ -20,18 +21,19 @@ function App() {
             <Route exact path="/"> 
               <ItemListContainer />
             </Route> 
-
             <Route path="/category/:id"> 
               <ItemListContainer />
             </Route> 
 
-            <Route path="/item/:id"> 
-              <ItemDetailContainer />
-            </Route>
+            <CartContextProvider>
+              <Route path="/item/:id"> 
+                <ItemDetailContainer />
+              </Route>
+              <Route path="/cart"> 
+                <Car />
+              </Route>
+            </CartContextProvider>
             
-            <Route path="/cart"> 
-              <Car />
-            </Route>
           </Switch> 
         </BrowserRouter> 
     </div>
