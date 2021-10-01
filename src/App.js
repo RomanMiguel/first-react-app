@@ -5,16 +5,14 @@ import ItemListContainer from './components/listContainer/itemListContainer';
 import ItemDetailContainer from './components/detailContainer/itemDetailContainer';
 import Car from './components/carrito/cart';
 import { CartContextProvider } from './components/context/cartContext';
+import {getProdCat} from './components/productos/productos'
 
 function App() {
-  const Articulos= [
-    {id: 0, category:"remeras"},
-    {id: 1, category:"pantalones"},
-    {id: 2, category:"zapatillas"}
-  ];
+  const Articulos= getProdCat();
 
   return (
     <div className="App">
+      <CartContextProvider>
         <BrowserRouter> 
           <NavBar art={Articulos}/>
           <Switch>
@@ -24,18 +22,15 @@ function App() {
             <Route path="/category/:id"> 
               <ItemListContainer />
             </Route> 
-
-            <CartContextProvider>
-              <Route path="/item/:id"> 
-                <ItemDetailContainer />
-              </Route>
-              <Route path="/cart"> 
-                <Car />
-              </Route>
-            </CartContextProvider>
-            
+            <Route path="/item/:id"> 
+              <ItemDetailContainer />
+            </Route>
+            <Route path="/cart"> 
+              <Car />
+            </Route>
           </Switch> 
-        </BrowserRouter> 
+        </BrowserRouter>  
+      </CartContextProvider> 
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import './itemDetail.css'
 import ItemCount from '../counter/itemCount'
+import { useState } from 'react'
 
 const ItemDetail=({ iten })=> {
+    const [cantidad, setCantidad]= useState();
 
     if(!iten){
         return<h1>Loading</h1>
@@ -16,7 +18,7 @@ const ItemDetail=({ iten })=> {
             <p>{iten?.description}</p>
             <p>{iten?.stock} en Stock</p>
             <h2>$ {iten?.price}</h2>
-            <ItemCount item={iten}/>
+            <ItemCount item={iten} cant={setCantidad}/>
         </div>
   </>
 }

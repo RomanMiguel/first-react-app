@@ -1,14 +1,21 @@
-import { useState, useContext} from "react";
+import { useState, useContext, useEffect} from "react";
 import './itemCount.css'
 import { Link } from 'react-router-dom'
 import CarContext from "../context/cartContext";
 
-const ItemCount= ({item})=>{
+const ItemCount= ({item, cant})=>{
     const[count, setCount]= useState(1)
-    const {addItem}= useContext(CarContext)
+    const {addItem, isInCar, getProduct}= useContext(CarContext)
     
+    useEffect(() => {
+        if(isInCar(item.id)) {
+           const oldQuantity = getProduct(item.id)?.quantity
+           setCount(oldQuantity)
+        }
+    },[])
     const onAddProduct=()=>{
         addItem(item,count)
+        cant(count)
     }
     
     return(
