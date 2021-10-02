@@ -2,7 +2,8 @@ import './itemListContainer.css'
 import ItemList from '../items/itemList';
 import { useEffect, useState} from 'react';
 import { useParams } from 'react-router';
-import {getProducts} from '../productos/productos'
+import {getDocs, collection, query, where} from "firebase/firestore"
+import { db } from '../services/firebase/firebase';
 
 const ItemListContainer= () =>{
 
@@ -10,11 +11,23 @@ const ItemListContainer= () =>{
     const {id}= useParams();
 
     useEffect(()=>{
-      const art= getProducts(id);
-      art.then(list =>{
-          setListArt(list)
-      })
-      return(()=>setListArt([]))
+      if(!id){
+        getDocs(collection(db,'articulos')).then((querySnapshot)=>{
+          const products= querySnapshot.docs.map(doc=>{
+            return {id:doc.id, ... doc.data()}
+          })
+          setListArt(products)
+        }).catch(error=>{console.log("error al traer los productos ")})
+      }
+      else{
+        getDocs(query(collection(db,'articulos'),where('category','==',id))).then((querysnapshot)=>{
+          const productsFilter= querysnapshot.docs.map(doc=>{
+            return{id: doc.id, ... doc.data()}
+          })
+          setListArt(productsFilter)
+        }).catch(error=>{console.log("error al traer los productos ")})
+      }
+    
     },[id])
 
     if(articulos.length===0){

@@ -5,16 +5,16 @@ import ItemListContainer from './components/listContainer/itemListContainer';
 import ItemDetailContainer from './components/detailContainer/itemDetailContainer';
 import Car from './components/carrito/cart';
 import { CartContextProvider } from './components/context/cartContext';
-import {getProdCat} from './components/productos/productos'
+//import {getProdCat} from './components/productos/productos'
 
 function App() {
-  const Articulos= getProdCat();
+  //const Articulos= getProdCat();
 
   return (
     <div className="App">
       <CartContextProvider>
         <BrowserRouter> 
-          <NavBar art={Articulos}/>
+          <NavBar/>
           <Switch>
             <Route exact path="/"> 
               <ItemListContainer />
