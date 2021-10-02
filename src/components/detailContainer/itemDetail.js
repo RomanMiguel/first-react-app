@@ -1,6 +1,7 @@
 import './itemDetail.css'
 import ItemCount from '../counter/itemCount'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const ItemDetail=({ iten })=> {
     const [cantidad, setCantidad]= useState();
@@ -19,6 +20,7 @@ const ItemDetail=({ iten })=> {
             <p>{iten?.stock} en Stock</p>
             <h2>$ {iten?.price}</h2>
             <ItemCount item={iten} cant={setCantidad}/>
+            {cantidad>0?<Link to="/cart"><button>terminar compra</button></Link>:""}
         </div>
   </>
 }

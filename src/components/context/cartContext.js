@@ -38,6 +38,20 @@ export const CartContextProvider=({children})=>{
     const clear=()=>{
         setCarrito([])
     }
+    const getTotal = () => {
+        let total = 0
+        carrito.forEach(prod => {
+            total = total + prod.price * prod.quantity
+        })
+        return total
+    }
+    const getQuantity = () => {
+        let count = 0
+        carrito.forEach(prod => {
+            count = count + prod.quantity
+        })
+        return count
+    }
     return(
         <CarContext.Provider value={{ 
         carrito,
@@ -45,7 +59,9 @@ export const CartContextProvider=({children})=>{
         removeItem, 
         clear, 
         getProduct, 
-        isInCar
+        isInCar,
+        getTotal,
+        getQuantity
         }}>
             {children}
         </CarContext.Provider>

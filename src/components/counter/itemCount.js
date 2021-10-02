@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom'
 import CarContext from "../context/cartContext";
 
 const ItemCount= ({item, cant})=>{
-    const[count, setCount]= useState(1)
+    const[count, setCount]= useState(0)
     const {addItem, isInCar, getProduct}= useContext(CarContext)
-    
+
     useEffect(() => {
         if(isInCar(item.id)) {
            const oldQuantity = getProduct(item.id)?.quantity
            setCount(oldQuantity)
+           cant(oldQuantity)
         }
     },[])
     const onAddProduct=()=>{
         addItem(item,count)
-        cant(count)
     }
     
     return(
