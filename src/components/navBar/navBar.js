@@ -1,24 +1,21 @@
 import './navBar.css';
 import Car from'./carrito/cartWidget'
 import {NavLink, Link} from 'react-router-dom'
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import CarContext from '../context/cartContext';
-import { useEffect } from 'react';
-import { db } from '../services/firebase/firebase';
-import { getDocs, collection} from '@firebase/firestore';
+import UserContext from '../context/userContext';
+import {categorias} from '../services/firebase/firebase'
+
 const NavBar= ()=>{
   const {getQuantity}= useContext(CarContext)
   const [category, setCategory]= useState(undefined)
+  const {user, logout}= useContext(UserContext)
 
   useEffect(()=>{
-    getDocs(collection(db,'categorias')).then((QuerySnapshot)=>{
-      const cat= QuerySnapshot.docs.map(doc=>{
-        return{id:doc.id, ... doc.data()}
-      })
-      setCategory(cat)
+    categorias().then(categories=>{setCategory(categories)}).catch(error=>{
+      console.log(error)
     })
   },[])
-  console.log(category)
   return (
     <nav className='navBar'>
       <div className='navOptionLeft'>
@@ -32,8 +29,8 @@ const NavBar= ()=>{
       </div>
       
       <div className='navOptionRight'>
-        <button>iniciar</button>
-        <button>registrarse</button>
+        {user?<button onClick={()=>logout()}>logout</button>:<Link to="/login"><button>login</button></Link>}
+        {user?<div>{user}</div>:""}
       </div>
     </nav>
   );

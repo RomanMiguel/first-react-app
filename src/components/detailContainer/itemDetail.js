@@ -1,10 +1,12 @@
 import './itemDetail.css'
 import ItemCount from '../counter/itemCount'
-import { useState } from 'react'
+import { useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from '../context/userContext'
 
 const ItemDetail=({ iten })=> {
     const [cantidad, setCantidad]= useState();
+    const {user}= useContext(UserContext)
 
     if(!iten){
         return<h1>Loading</h1>
@@ -19,8 +21,9 @@ const ItemDetail=({ iten })=> {
             <p>{iten?.description}</p>
             <p>{iten?.stock} en Stock</p>
             <h2>$ {iten?.price}</h2>
-            <ItemCount item={iten} cant={setCantidad}/>
-            {cantidad>0?<Link to="/cart"><button>terminar compra</button></Link>:""}
+            {user?<ItemCount item={iten} cant={setCantidad}/>:""}
+            {user?<Link to='/cart'><button className="Button">Ir al carrito</button></Link>
+            :<Link to='/login'><button className="Button">Login</button></Link>}
         </div>
   </>
 }

@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect} from "react";
 import './itemCount.css'
-import { Link } from 'react-router-dom'
 import CarContext from "../context/cartContext";
 
 const ItemCount= ({item, cant})=>{
@@ -26,9 +25,7 @@ const ItemCount= ({item, cant})=>{
                 <button className='col-3' onClick={()=>count<item.stock?setCount(count+1):''}>+</button>
             </div>
 
-            <Link to="/cart">
-                <button onClick={onAddProduct} className='btn btn-success'>Agregar al carrito</button>
-            </Link>
+            <button onClick={onAddProduct} className='btn btn-success'>Agregar al carrito</button>
         </div>
     )
 }

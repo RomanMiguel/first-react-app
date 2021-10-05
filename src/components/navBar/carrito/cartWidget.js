@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom"
 import { useContext } from "react";
-import CarContext from "../../context/cartContext";
+import CarContext, { CartContextProvider } from "../../context/cartContext";
+import "../carrito/cars.css"
 
 const Car = () =>{
     const {getQuantity}= useContext(CarContext)
 
     return(
         <button>
-            <img src="./carrito.svg" className="carrito"/>
+            <img className="imagen" src="cart.svg " className="carrito"/>
             {getQuantity()}
         </button>
     )

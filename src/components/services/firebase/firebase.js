@@ -1,5 +1,14 @@
 import * as firebase from "firebase/app"
 import {getFirestore} from "firebase/firestore"
+import { collection, 
+    getDocs, 
+    query, 
+    where,
+    doc, 
+    getDoc, 
+    writeBatch, 
+    addDoc, 
+    Timestamp } from "@firebase/firestore"
 
 const firebaseConfig = {
     apiKey: "AIzaSyAkSunaLOZumZkrEnQo9BZ8AGlLK9lladE",
@@ -15,3 +24,14 @@ const app= firebase.initializeApp(firebaseConfig)
 export const getFirebase=()=>{return app}
 
 export const db= getFirestore(app)
+
+export const categorias=()=>{
+    return new Promise((resolve, reject)=>{
+        getDocs(collection(db,'categorias')).then((QuerySnapshot)=>{
+            const cat= QuerySnapshot.docs.map(doc=>{
+              return{id:doc.id, ... doc.data()}
+            })
+            resolve(cat)
+        }).catch((error)=>{reject('error obteniendo categorias:', error)})
+    })
+}

@@ -5,10 +5,9 @@ import ItemListContainer from './components/listContainer/itemListContainer';
 import ItemDetailContainer from './components/detailContainer/itemDetailContainer';
 import Car from './components/carrito/cart';
 import { CartContextProvider } from './components/context/cartContext';
-//import {getProdCat} from './components/productos/productos'
+import Login from './components/login/login';
 
 function App() {
-  //const Articulos= getProdCat();
 
   return (
     <div className="App">
@@ -27,6 +26,9 @@ function App() {
             </Route>
             <Route path="/cart"> 
               <Car />
+            </Route>
+            <Route path="/login">
+              <Login />
             </Route>
           </Switch> 
         </BrowserRouter>  

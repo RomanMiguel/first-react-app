@@ -1,11 +1,12 @@
 import Item from './item'
 
 const ItemList = ({items}) => {
+  if(items.length===0){
+    return <h1>Sin stock</h1>
+  }
   return(
     <div>
-      {items.map(e=>{
-        return<Item item={e}></Item>
-      })}
+      {items.map(e=><Item item={e}></Item>)}
     </div>
   )
 };
