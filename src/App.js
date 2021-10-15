@@ -6,6 +6,7 @@ import ItemDetailContainer from './components/detailContainer/itemDetailContaine
 import Car from './components/carrito/cart';
 import { CartContextProvider } from './components/context/cartContext';
 import Login from './components/login/login';
+import Footer from './components/footer/footer';
 
 function App() {
 
@@ -15,22 +16,13 @@ function App() {
         <BrowserRouter> 
           <NavBar/>
           <Switch>
-            <Route exact path="/"> 
-              <ItemListContainer />
-            </Route> 
-            <Route path="/category/:id"> 
-              <ItemListContainer />
-            </Route> 
-            <Route path="/item/:id"> 
-              <ItemDetailContainer />
-            </Route>
-            <Route path="/cart"> 
-              <Car />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
+            <Route exact path="/" component={ItemListContainer}/>
+            <Route path="/category/:id" component={ItemListContainer}/> 
+            <Route path="/item/:id" component={ItemDetailContainer}/>
+            <Route path="/cart" component={Car}/>
+            <Route path="/login"component={Login}/>
           </Switch> 
+          <Footer />
         </BrowserRouter>  
       </CartContextProvider> 
     </div>

@@ -2,8 +2,7 @@ import './itemListContainer.css'
 import ItemList from '../items/itemList';
 import { useEffect, useState} from 'react';
 import { useParams } from 'react-router';
-import {getDocs, collection, query, where} from "firebase/firestore"
-import { db } from '../services/firebase/firebase';
+import { getArticles } from '../services/firebase/firebase';
 
 const ItemListContainer= () =>{
     const [articulos, setListArt] = useState([]);
@@ -11,32 +10,17 @@ const ItemListContainer= () =>{
     const [loading, setLoading]= useState(undefined);
 
     useEffect(()=>{
-      if(!id){
         setLoading(true)
-        getDocs(collection(db,'articulos')).then((querySnapshot)=>{
-          const products= querySnapshot.docs.map(doc=>{
-            return {id:doc.id, ... doc.data()}
-          })
-          setListArt(products)
-        }).catch(error=>{console.log("error al traer los productos ")}).finally(() => {
+        getArticles("category","==",id).then(articles=>{
+          setListArt(articles)
+        }).catch((error)=>{console.log(error)
+        }).finally(() => {
           setLoading(false)
-      })
-      }
-      else{
-        setLoading(true)
-        getDocs(query(collection(db,'articulos'),where('category','==',id))).then((querysnapshot)=>{
-          const productsFilter= querysnapshot.docs.map(doc=>{
-            return{id: doc.id, ... doc.data()}
-          })
-          setListArt(productsFilter)
-        }).catch(error=>{console.log("error al traer los productos ")}).finally(() => {
-          setLoading(false)
-      })
-      }
+        })
     },[id])
 
     return(
-        <div className="">
+        <div className="container">
             <h2 className="titulo">Catalogo</h2>
             {loading? "Loading":<ItemList items={articulos}/>}
         </div>

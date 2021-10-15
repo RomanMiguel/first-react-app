@@ -5,7 +5,7 @@ const ItemList = ({items}) => {
     return <h1>Sin stock</h1>
   }
   return(
-    <div>
+    <div className="row">
       {items.map(e=><Item item={e}></Item>)}
     </div>
   )

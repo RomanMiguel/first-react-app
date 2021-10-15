@@ -1,23 +1,24 @@
 import ItemDetail from './itemDetail'
 import { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import {db} from '../services/firebase/firebase'
-import {doc, getDoc} from 'firebase/firestore'
+import {articlebyId} from "../services/firebase/firebase"
 
 function ItemDetailContainer() {
     const [element, setElement] = useState(undefined);
     const {id} = useParams();
+    const [loading, setLoading]= useState(true)
 
     useEffect(()=>{
-        getDoc(doc(db,'articulos',id)).then((QuerySnapshot)=>{
-            const product={id: QuerySnapshot.id, ... QuerySnapshot.data()}
-            setElement(product)
-        }).catch((error)=>{console.log("error searching intems", error)})
+        setLoading(true)
+        articlebyId(id).then(prod=>{
+            setElement(prod)})
+        .catch((error)=>{console.log(error)})
+        .finally(()=>{setLoading(false)})
     },[id])
 
     return(
         <div>
-            <ItemDetail iten={element}/>
+            {loading?"Loading": <ItemDetail iten={element}/>}
         </div>
     )
 }

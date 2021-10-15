@@ -1,13 +1,12 @@
 import { useContext } from "react";
-import CarContext, { CartContextProvider } from "../../context/cartContext";
-import "../carrito/cars.css"
-
+import CarContext from "../../context/cartContext";
+import cart from"./cart.svg"
 const Car = () =>{
     const {getQuantity}= useContext(CarContext)
 
     return(
         <button>
-            <img className="imagen" src="cart.svg " className="carrito"/>
+            <img src={cart} className="carrito"/>
             {getQuantity()}
         </button>
     )

@@ -3,8 +3,8 @@ import CarContext from "../context/cartContext";
 import ItemCart from "./itemCart";
 import { Link } from "react-router-dom";
 import UserContext from "../context/userContext";
-import { db } from "../services/firebase/firebase";
-import { collection, addDoc, getDoc, doc, Timestamp,writeBatch} from "@firebase/firestore";
+import { sendOrder } from "../services/firebase/firebase";
+import './cart.css'
 
 const Car=()=>{
     const {carrito, clear, getTotal}= useContext(CarContext)
@@ -19,42 +19,23 @@ const Car=()=>{
         const Orden = {
             buyer: user,
             items: carrito,
-            total: getTotal(),
-            date: Timestamp.fromDate(new Date())
+            total: getTotal()
         } 
-        const batch = writeBatch(db)
-        const sinStock = []
-
-        Orden.items.forEach((element, i) => {
-            getDoc(doc(db,'articulos',element.id)).then(DocumentSnapshot=>{
-                if(DocumentSnapshot.data().stock>= Orden.items[i].quantity){
-                    batch.update(doc(db, 'articulos', DocumentSnapshot.id), {
-                        stock: DocumentSnapshot.data().stock - Orden.items[i].quantity
-                    })
-                }else{
-                    sinStock.push({... DocumentSnapshot.data(), id: DocumentSnapshot.id})
-                }
-            })
-        });
-
-        if(sinStock.length === 0) {
-            addDoc(collection(db, 'ordenes'), Orden).then(() => {
-                batch.commit().then(() => {
-                    alert('La orden se ejecuto con exito')
-                })
-            }).catch((error) => {
-                alert('Error al ejecutar la orden', error)
-            }).finally(() => {
-                clear()
-            })
-        }
+        sendOrder(Orden).then((msg)=>{console.log(msg)})
+        .catch((error)=>{console.log(error)})
+        .finally(()=>{clear()})
     }
     
-    return(<>
-        <button onClick={()=>clear()}>Vaciar carrito</button>
-        <button onClick={() => confirmOrder()}>Confirmar Com pra</button>
-        {carrito.map(e=><ItemCart item={e} />)}
-        <h3>Total: {getTotal()}</h3>
-    </>)
+    return(
+    <div className="cart-container">
+        <div className="items-container col">
+            {carrito.map(e=><ItemCart item={e} />)}
+        </div>
+        <div className="d-flex justify-content-evenly row">
+            <button className="btn btn-danger col-4" onClick={()=>clear()}>Vaciar carrito</button>
+            <button className="btn btn-success col-4" onClick={() => confirmOrder()}>Confirmar Compra</button>
+            <h3 className="col-4">Total: {getTotal()}</h3>
+        </div>
+    </div>)
 }
 export default Car;

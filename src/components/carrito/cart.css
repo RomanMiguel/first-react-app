@@ -1,8 +1,12 @@
-.block{
+.cart-detail{
     border: 2px solid powderblue ;
     border-radius: 10px;
     background-color: slategrey;
     padding: 10px 0;
     text-transform: uppercase;
-    margin:20px;
+    margin: 40px 50px;
+}
+.cont-button{
+    display: flex;
+    align-items: center;
 }

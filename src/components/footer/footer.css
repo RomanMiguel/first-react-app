@@ -1,0 +1,13 @@
+footer{
+    background-color: #343a40;
+    color: wheat;
+    text-align: center;
+    list-style: none;
+    text-decoration: none;
+    line-height: 30px;
+}
+.redes{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

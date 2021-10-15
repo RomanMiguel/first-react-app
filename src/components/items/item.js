@@ -7,14 +7,15 @@ const Item=({item})=>{
   }
 
   return(
-    <div key={item?.id} className="container-list">
-      <Link to={"/item/"+item.id} >
-        <h2>{item?.title}</h2>
-      </Link>
+    <div key={item?.id} className="block col-3">
+      <h2>{item?.title}</h2>
       <div>
         <img src={item?.picture} className="imagen-art"/>
       </div>
       <h2>$ {item?.price}</h2>
+      <Link to={"/item/"+item.id} >
+        <button>Ver detalles</button>
+      </Link>
     </div>
   )
 }
