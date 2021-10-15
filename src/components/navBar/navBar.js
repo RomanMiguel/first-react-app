@@ -3,7 +3,7 @@ import {NavLink, Link} from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react';
 import CarContext from '../context/cartContext';
 import UserContext from '../context/userContext';
-import {categorias} from '../services/firebase/firebase'
+import {categorias} from '../../services/firebase/firebase'
 
 const NavBar= ()=>{
   const {getQuantity, clear}= useContext(CarContext)

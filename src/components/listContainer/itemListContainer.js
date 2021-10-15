@@ -2,7 +2,7 @@ import './itemListContainer.css'
 import ItemList from '../items/itemList';
 import { useEffect, useState} from 'react';
 import { useParams } from 'react-router';
-import { getArticles } from '../services/firebase/firebase';
+import { getArticles } from '../../services/firebase/firebase';
 
 const ItemListContainer= () =>{
     const [articulos, setListArt] = useState([]);

@@ -3,7 +3,7 @@ import CarContext from "../context/cartContext";
 import ItemCart from "./itemCart";
 import { Link } from "react-router-dom";
 import UserContext from "../context/userContext";
-import { sendOrder } from "../services/firebase/firebase";
+import {sendOrder} from "../../services/firebase/firebase"
 import './cart.css'
 
 const Car=()=>{
@@ -21,7 +21,7 @@ const Car=()=>{
             items: carrito,
             total: getTotal()
         } 
-        sendOrder(Orden).then((msg)=>{console.log(msg)})
+        sendOrder(Orden).then((msg)=>{alert("Gracias por tu compra. " + msg)})
         .catch((error)=>{console.log(error)})
         .finally(()=>{clear()})
     }

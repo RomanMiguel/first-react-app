@@ -11,18 +11,18 @@ import { collection,
     Timestamp} from "@firebase/firestore"
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAkSunaLOZumZkrEnQo9BZ8AGlLK9lladE",
-    authDomain: "mi-proyecto-react-3b8d5.firebaseapp.com",
-    projectId: "mi-proyecto-react-3b8d5",
-    storageBucket: "mi-proyecto-react-3b8d5.appspot.com",
-    messagingSenderId: "824859107377",
-    appId: "1:824859107377:web:8be69f7bb271bbe8f7b510"
-    // apiKey: process.env.REACT_APP_apiKey ,
-    // authDomain: process.env.REACT_APP_authDomain ,
-    // projectId: process.env.REACT_APP_projectId ,
-    // storageBucket: process.env.REACT_APP_storageBucket ,
-    // messagingSenderId: process.env.REACT_APP_messagingSenderId ,
-    // appId: process.env.REACT_APP_appId
+    // apiKey: "AIzaSyAkSunaLOZumZkrEnQo9BZ8AGlLK9lladE",
+    // authDomain: "mi-proyecto-react-3b8d5.firebaseapp.com",
+    // projectId: "mi-proyecto-react-3b8d5",
+    // storageBucket: "mi-proyecto-react-3b8d5.appspot.com",
+    // messagingSenderId: "824859107377",
+    // appId: "1:824859107377:web:8be69f7bb271bbe8f7b510"
+    apiKey: process.env.REACT_APP_apiKey ,
+    authDomain: process.env.REACT_APP_authDomain ,
+    projectId: process.env.REACT_APP_projectId ,
+    storageBucket: process.env.REACT_APP_storageBucket ,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId ,
+    appId: process.env.REACT_APP_appId
 }
 
 const app= firebase.initializeApp(firebaseConfig)
