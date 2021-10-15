@@ -4,11 +4,13 @@ import ItemCart from "./itemCart";
 import { Link } from "react-router-dom";
 import UserContext from "../context/userContext";
 import {sendOrder} from "../../services/firebase/firebase"
+import { useHistory } from "react-router";
 import './cart.css'
 
 const Car=()=>{
     const {carrito, clear, getTotal}= useContext(CarContext)
     const {user}= useContext(UserContext)
+    const History= useHistory();
     if(carrito.length===0){
         return(<>
             <h3>No hay productos</h3>
@@ -24,6 +26,7 @@ const Car=()=>{
         sendOrder(Orden).then((msg)=>{alert("Gracias por tu compra. " + msg)})
         .catch((error)=>{console.log(error)})
         .finally(()=>{clear()})
+        History.push("/")
     }
     
     return(

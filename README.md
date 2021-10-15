@@ -1,5 +1,7 @@
 # Mi app
 
+![mi-app](./src/gif/mi-app.gif)
+
 ## Creacion:
     npx create-react-app mi-app
 ## Inicializar:
@@ -29,7 +31,7 @@ login: recibe el nombre de osuario y lo guarda en un estado
 
 logout: vacia el estado
 
-### firebase:
+## firebase:
 
 Utilizo firebase.js para traer documentacion de la base de datos y exportarla a los componentes de mi-app 
 
@@ -58,18 +60,32 @@ Retorna los articulos y los botones vaciar carrito, confirmar compra(pasa por pr
 
 recibe addItem(), isInCar(),getProduct() del [cartContext](). Luego dentro de un useEffect utilizo la funcion isIncar() y si es verdadero tambien getProduct() para setear la cantidad a un estado. Luego retorno la cantidad del estado y los botones para agregar (sin pasarme del stock que recibi por props),restar , y el boton agregar al carrito que ejecuta la funcion addItem.
 
+## itemListContainer:
+
+importo itemList, useEffect, useState, useParams y getArticles del firebase. Creo un estado de articulos el cual seteo dentro de un useEffect. el useEffect cambia cuando recibe un id y se lo envia por props a getArticles() el cual retorna una promesa.
+
+Luego de envian por props los articulos al componente itemList.
+
+## itemList:
+
+importo el componente item, luego mapeo los articulos recibidos por props al componente item
+
+## item:
+
+importo item.css y Link de react-router-dom. retorno una card con los detalles que recibo por props y utilizo link para que al clickear el boton "ver detalles" te envie al componente itemDetail
+
 ## itemDetailContainer:
 
 Recibo un id por useParams. Utilizo articlebyId con el id dentro del useEffect y que actualize cada que cambia el id, agrego el articulo a un estado y lo mando por props al componente itemDetail
 
 itemDetail: retorna la ficha de detalles del producto. Recibe el usuario del contexto userContext, si esta logeado muesta el componente itemCount tambien el boton de ir al carrito, sino muestra un boton para logearse
 
-### itemCount:
+## itemCount:
 
 importa addItem, isInCar, getProduct del contexto carContext y un estado para almacenar la cantidad. Dentro del useEffect verifico con isInCar si el objeto esta en el carrito y si esta traigo la cantidad con getProduct y seteo la cantidad al estado.
 
 retorno la cantidad con los botones para agregar,quitar unidades y agregar al carrito con la funcion addItem
 
-### login:
+## login:
 
-importa la funcion login del context userContext, useHistory de react-router-dom y crea los estados username y password. retorna un formulario donde utiliza el evento onChange en el input para setear los estados y un boton de submit. cuando se envia el formulario se activa la funcion handleLogin que envia el objeto con los estados a la funcion login del userContext y pushea el history al home.
+importo la funcion login() del context userContext, useHistory() y creo los estados username y password. retorno un formulario donde utilizo el evento onChange en el input para setear los estados y un boton de submit. cuando se envia el formulario se activa la funcion handleLogin que envia el objeto con los estados a la funcion login del userContext y pushea el history al home.
